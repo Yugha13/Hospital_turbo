@@ -1,0 +1,110 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5432/mydb?schema=public"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Patient {
+  id            Int               @id       @default(autoincrement())
+  email         String            @unique
+  password      String?
+  patientInfo   PatientInfo? 
+  appointments  Appointment[]     @relation("PatientAppointments")
+  pillrefill    PillRefill[]
+  medicalHistory MedicalHistory[]
+  paymentHistory PaymentHistory[]
+  reviews       Review[]
+}
+
+model PatientInfo {
+  id              Int       @id      @default(autoincrement())
+  name            String
+  dob             DateTime
+  gender          String
+  email           String    @unique
+  phone           String
+  healthIssues    String?
+  medicalHistory  String?
+  emergencyNumber String?
+  patient         Patient   @relation(fields: [email], references: [email])
+}
+
+model Doctor {
+  id            Int            @id     @default(autoincrement())
+  email         String         @unique
+  password      String?
+  appointments  Appointment[]  @relation("DoctorAppointments")
+  doctorinfo    DoctorInfo?
+  reviews       Review[]
+  medicalHistory MedicalHistory[]
+}
+
+model DoctorInfo {
+  id              Int      @id      @default(autoincrement())
+  name            String
+  dob             DateTime
+  gender          String
+  email           String   @unique
+  phone           String
+  specialist      String
+  experiance      Int
+  doctor          Doctor   @relation(fields: [email], references: [email])
+}
+
+model Appointment {
+  id           String     @id @default(uuid())
+  date         DateTime   @default(now())
+  doctor       Doctor     @relation("DoctorAppointments", fields: [doctorEmail], references: [email])
+  doctorEmail     String
+  patient      Patient    @relation("PatientAppointments", fields: [patientEmail], references: [email])
+  patientEmail    String
+}
+
+model PillRefill {
+  id                Int    @id @default(autoincrement())
+  prescriptionNumber String
+  medicationName     String
+  prescribingDoctor  String
+  additionalNotes    String?
+  patientEmail       String
+  patient            Patient    @relation(fields: [patientEmail], references: [email])
+  PatientName        String
+  dateOfBirth        DateTime
+  contactNumber      String
+  emailAddress       String
+}
+
+model MedicalHistory {
+  id            Int      @id @default(autoincrement())
+  date          DateTime @default(now())
+  patientEmail  String
+  patient       Patient  @relation(fields: [patientEmail], references: [email])
+  patientName   String
+  phone         String
+  doctorEmail   String
+  doctor        Doctor   @relation(fields: [doctorEmail], references: [email])
+  doctorName    String
+}
+
+model Review {
+  id            Int      @id @default(autoincrement())
+  name          String
+  content       String
+  rating        Int
+  doctorEmail   String
+  doctor        Doctor   @relation(fields: [doctorEmail], references: [email])
+  patientEmail  String
+  patient       Patient  @relation(fields: [patientEmail], references: [email])
+}
+
+model PaymentHistory {
+  id             Int      @id @default(autoincrement())
+  date           DateTime @default(now())
+  patientEmail   String
+  patient        Patient  @relation(fields: [patientEmail], references: [email])
+  patientName    String
+  status         String   // e.g., cancelled, processing, success
+}

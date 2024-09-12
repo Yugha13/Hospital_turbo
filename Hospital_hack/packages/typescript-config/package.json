@@ -1,0 +1,20 @@
+{
+  "name": "@repo/typescript-config",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "lucide-react": "^0.395.0",
+    "typescript": "^5.5.4",
+    "zod": "^3.23.8",
+    "zod-prisma-types": "^3.1.8",
+    "zod-to-ts": "^1.2.0"
+  },
+  "devDependencies": {
+    "zod": "^3.23.8",
+    "zod-to-ts": "^1.2.0"
+  }
+}
