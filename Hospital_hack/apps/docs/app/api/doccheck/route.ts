@@ -15,7 +15,7 @@ export const GET = async(req : NextRequest) => {
         },
     });
     if(!user) return NextResponse.json({mes: "not found"}, {status: 405})
-    console.log(user);
+    // console.log(user);
     return NextResponse.json(user);
 }
 
@@ -37,7 +37,7 @@ export const PUT = async (req : NextRequest) => {
 
         return NextResponse.json({mes: "done"})
     } catch (e) {
-        console.log(e);
+        // console.log(e);
         return NextResponse.json({mes: "not done"})
         
     }
@@ -46,11 +46,11 @@ export const PUT = async (req : NextRequest) => {
 export const POST = async (req : NextRequest) => {
     const { getUser } = getKindeServerSession();
     const { email } = await getUser() as any;
-    console.log(email);
+    // console.log(email);
     
     const datas = await req.json();
     const isVer = docInfoSchema.safeParse(datas);
-    console.log(isVer.error?.formErrors);
+    // console.log(isVer.error?.formErrors);
     if(!isVer.success) return NextResponse.json({mes: isVer.error.formErrors}, {status: 405})
     try {
         await prisma.doctor.update({
@@ -68,7 +68,7 @@ export const POST = async (req : NextRequest) => {
         });
         return NextResponse.json({ message: "Doctor info added successfully" }, { status: 201 });
     }catch (e) {
-        console.log(e);
+        // console.log(e);
         return NextResponse.json({ error: "An error occurred while creating the Doctor" }, { status: 500 });
     } 
 }

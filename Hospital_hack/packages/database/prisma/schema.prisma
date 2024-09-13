@@ -56,11 +56,15 @@ model DoctorInfo {
 
 model Appointment {
   id           String     @id @default(uuid())
+  name         String
+  phone        String
   date         DateTime   @default(now())
+  time         String
   doctor       Doctor     @relation("DoctorAppointments", fields: [doctorEmail], references: [email])
-  doctorEmail     String
-  patient      Patient    @relation("PatientAppointments", fields: [patientEmail], references: [email])
-  patientEmail    String
+  email        String
+  doctorEmail  String
+  reason       String
+  patient      Patient    @relation("PatientAppointments", fields: [email], references: [email])
 }
 
 model PillRefill {
@@ -108,3 +112,4 @@ model PaymentHistory {
   patientName    String
   status         String   // e.g., cancelled, processing, success
 }
+

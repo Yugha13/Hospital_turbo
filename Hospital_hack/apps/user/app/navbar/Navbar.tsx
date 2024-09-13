@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Button } from "@repo/ui/components/ui/button"
 import { Sheet, SheetTrigger, SheetContent } from "@repo/ui/components/ui/sheet"
-import { LogOut, MenuIcon, User } from "lucide-react"
+import { Loader2, LogOut, MenuIcon, User } from "lucide-react"
 import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components"
 import {useKindeBrowserClient} from "@kinde-oss/kinde-auth-nextjs";
 import { useRouter } from "next/navigation"
@@ -13,8 +13,12 @@ import NotNav from "./NotNav"
 
 export default function Component() {
   const navigate = useRouter();
-  const {isAuthenticated} = useKindeBrowserClient();
+  const {isAuthenticated, isLoading} = useKindeBrowserClient();
   
+  if(isLoading) {
+    return <nav className="border-b-2 border-pink-100 bg-gray-200 animate-pulse w-full h-16 flex ">
+    </nav>
+  }
   if(!isAuthenticated) {
     return <NotNav/>
   }

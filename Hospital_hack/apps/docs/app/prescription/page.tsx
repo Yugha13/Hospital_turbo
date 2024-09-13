@@ -19,9 +19,10 @@ export default function Component() {
               <Label htmlFor="patient-name">Patient Name</Label>
               <Input id="patient-name" placeholder="Enter patient's name" />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="dob">Date of Birth</Label>
-              <Input id="dob" type="date" />
+            
+              <div className="grid gap-2">
+              <Label htmlFor="medication">Medication</Label>
+              <Input id="medication" placeholder="Enter medication name" />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="diagnosis">Diagnosis</Label>
@@ -29,22 +30,24 @@ export default function Component() {
             </div>
           </div>
           <div className="space-y-4">
-            <div className="grid gap-2">
-              <Label htmlFor="medication">Medication</Label>
-              <Input id="medication" placeholder="Enter medication name" />
-            </div>
+          <div className="grid gap-2">
+                <Label htmlFor="instructions">Prescription Number</Label>
+                <Input id="prescriptionNumber" placeholder="Enter Prescription Number" />
+              </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="dosage">Dosage</Label>
                 <Input id="dosage" placeholder="Enter dosage" />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="instructions">Instructions</Label>
-                <Input id="instructions" placeholder="Enter instructions" />
-              </div>
+              <Label htmlFor="dob">Date of Birth</Label>
+              <Input id="dob" type="date" />
+            </div>
+              
+
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="signature">Doctor's Signature</Label>
+              <Label htmlFor="signature">Doctor's Note</Label>
               <Textarea id="signature" rows={3} placeholder="Enter doctor's signature" />
             </div>
           </div>

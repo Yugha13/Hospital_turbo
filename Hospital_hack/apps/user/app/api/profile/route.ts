@@ -18,6 +18,6 @@ export const GET = async (req:NextRequest) => {
             patientInfo: true
         }
     });
-    console.log(userData);
+    // console.log(userData);
     return NextResponse.json({info: userData?.patientInfo})
 }

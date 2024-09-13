@@ -5,7 +5,7 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Mail, Phone, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Textarea } from "@repo/ui/components/ui/textarea";
+
 
 
 
@@ -27,10 +27,10 @@ export default function Component() {
     
     const handleSubmit = async(e : any) => {
       e.preventDefault();
-      console.log(formData);
+      // console.log(formData);
       
       const err = await axios.put("/api/healthcheck", {...formData});
-      console.log(err);
+      // console.log(err);
 
     }
 

@@ -3,6 +3,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@repo/ui/components/ui/select";
 import { Button } from "@repo/ui/components/ui/button";
 import { Mail, Phone, User } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Textarea } from "@repo/ui/components/ui/textarea";
@@ -15,7 +16,7 @@ export default function Component() {
     useEffect(() => {
         (async() => {
             const user = await axios.get("/api/profile");
-            console.log(user.data.info);
+            // console.log(user.data.info);
             
             setInfo(user.data.info)
             // const dateString = "2024-09-11T00:00:00.000Z";
@@ -26,21 +27,26 @@ export default function Component() {
     
     const handleSubmit = async(e : any) => {
       e.preventDefault();
-      console.log(formData);
-      
-      const err = await axios.put("/api/healthcheck", {...formData});
-      console.log(err);
-
+      // console.log(formData);
+      const err = await axios.put("/api/patientcheck", {...formData});
+      // console.log(err);
     }
 
     const handleChange = (e:any)  => {
       // console.log(e);
       const name = e?.target?.id;
-      const value = e.target?.value;    
-      setFormData(cur => ({...cur, [name]: value}));
-      
+      const value = e.target?.value;
+
+      setFormData(cur => ({...cur, [name]: value}));   
     }
 
+    if(!info) {
+      return (
+        <div  className="h-screen w-screen grid place-items-center">
+          <Link href="/welcome"><Button variant="outline" >Fill Your Information to View Your Profile</Button></Link>
+        </div>
+    )
+    }
     const imgs = (info.gender=="female" ? 
       ("https://wallpapers.com/images/hd/pink-angel-cool-profile-picture-wcjxfrrq0kjq98yb.jpg"
     ):(

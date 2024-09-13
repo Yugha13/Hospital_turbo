@@ -25,6 +25,22 @@ const docInfoSchema = z.object({
   phone   : z.string().min(10).max(15),
 })
 
-export { userInfoSchema, docInfoSchema };
+
+const userAppointment = z.object({
+  name: z.string(), 
+  phone           : z.string().min(10).max(15),
+  email           : z.string(),
+  date            : z.string(),
+  time            : z.string(),
+  reason          : z.string(),
+  doctorEmail     : z.string().email(),
+  userId          : z.number().int().optional(), 
+  user            : z.object({ 
+                      email: z.string().email()
+                    }).optional()
+});
 
 
+
+
+export { userInfoSchema, docInfoSchema, userAppointment };

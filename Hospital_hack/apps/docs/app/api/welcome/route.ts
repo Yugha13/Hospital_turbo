@@ -21,7 +21,7 @@ export async function GET(req:any, res:any)  {
         } 
         return NextResponse.redirect(process.env.BASEURL + "/dashboard");
     } catch(e) {
-        console.log("error: ", e);
+        // console.log("error: ", e);
         return redirect("/");
     }
 }

@@ -1,5 +1,5 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@repo/database";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -18,6 +18,6 @@ export const GET = async (req:NextRequest) => {
             patientInfo: true
         }
     });
-    console.log(userData);
+    // console.log(userData);
     return NextResponse.json({info: userData?.patientInfo})
 }

@@ -18,7 +18,7 @@ export default function Component() {
   useEffect(() => {
     (async() => {
       try{
-        await axios.get("/api/healthcheck");
+        await axios.get("/api/patientcheck");
         // console.log(data);
         navigate.push("/dashboard")
       } catch(e) {
@@ -26,12 +26,12 @@ export default function Component() {
 
       }
     })()
-  })
+  }, [])
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     // console.log(formData);
-    await axios.post("/api/healthcheck", formData);
+    await axios.post("/api/patientcheck", formData);
     navigate.push("/dashboard");
   }
 

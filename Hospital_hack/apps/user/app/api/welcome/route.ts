@@ -18,14 +18,13 @@ export async function GET(req:any, res:any)  {
         });
         return NextResponse.redirect(process.env.BASEURL + "/welcome");
     } catch(e) {
-        console.log("error: ", e);
+        // console.log("error: ", e);
 
         const userExist = await prisma.patientInfo.findFirst({
             where: {
-                email
             }
         });
         if(!userExist) return redirect("/welcome");
-        return redirect(process.env.BASEURL + "/dashboard");
+        return redirect( "/dashboard");
     }
 }
