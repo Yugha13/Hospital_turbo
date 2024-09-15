@@ -45,7 +45,7 @@ export default function MeetingHis() {
     },
   ]
   return (
-    <div className="flex flex-col min-h-screen bg-muted/40">
+    <div className="flex flex-col h-[95vh] bg-muted/40">
       <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
         <div className="flex items-center gap-2 text-lg font-semibold">
           <CalendarIcon className="w-6 h-6" />

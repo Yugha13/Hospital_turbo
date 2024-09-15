@@ -17,50 +17,31 @@ import { useEffect, useState } from "react";
 
 // const { toast } = useToast();
 const page = ({params}:any) => {
-  // console.log(params);
+  // console.log(params.docname);
 
 
   const [ date, setDate ] = useState();
   const [ formData, setFormData ] = useState({});
 
   const handleSubmit = async(e : any) => {
-    e.preventDefault();
     // console.log(formData);
-    try {
-      await axios.post("/api/appointment", {...formData ,date});
-      console.log(formData.time);
-      // toast("Appointment is booked");
-      setFormData("");
-      // console.log("appointment booked");
-      // toast({
-      //   title: "Appointment Scheduled:",
-      //   description: `0n ${date} at ${formData.time}`,
-      // })
-    } catch (e) {
-      console.log("Email or Phone number is Wrong");
-      // toast({
-      //   title: "Appointment Not Scheduled:",
-      //   description: "Reason : Give Valid Inputs",
-      // })
-    }
-    
+    e.preventDefault();
+    await axios.post("/api/appointment", {...formData ,date});
   }
   const handleChange = (e:any)  => {
     // console.log(e);
     const name = e.target?.id;
     const value = e.target?.value;
-
     setFormData((cur:any) => ({...cur, [name]: value}));   
   }
   
   useEffect(() => {
     (async() => {
-        const {data} = await axios.post("/api/alldocs", {id: params.id});
+        const {data} = await axios.post("/api/alldocs", {id: +params.docname});
         setFormData({doctorEmail: data.email})
-        
-        // setState
+        // console.log(params);
+        // console.log(data);
     })();
-
   }, [])
 
   

@@ -1,20 +1,18 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from "@repo/ui/components/ui/button"
 import { Input } from "@repo/ui/components/ui/input"
 import { Textarea } from "@repo/ui/components/ui/textarea"
 import { Label } from "@repo/ui/components/ui/label"
+import axios from 'axios'
 
 export default function Component() {
   const [formData, setFormData] = useState({
-    patientName: '',
-    dateOfBirth: '',
+    PatientName: '',
     contactNumber: '',
-    email: '',
     prescriptionNumber: '',
     medicationName: '',
     prescribingDoctor: '',
-    pharmacyPreference: '',
     additionalNotes: ''
   })
 
@@ -26,47 +24,31 @@ export default function Component() {
     }))
   }
 
-  const handleSubmit = (e : any) => {
-    e.preventDefault()
-    
-    console.log('Form submitted:', formData)
-    
+  const handleSubmit = async (e : any) => {
+    e.preventDefault();
+    await axios.post("/api/pillreq", {...formData});
+    // console.log('Form submitted:', formData)
     setFormData({
-      patientName: '',
-      dateOfBirth: '',
-      contactNumber: '',
-      email: '',
+      PatientName: '',   
+      contactNumber: '', 
       prescriptionNumber: '',
       medicationName: '',
       prescribingDoctor: '',
-      pharmacyPreference: '',
       additionalNotes: ''
     })
   }
 
   return (
-    <div className='h-full flex place-items-center'>
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto p-6 bg-white rounded-lg ">
+    <div className='h-full flex place-items-center mt-4'>
+    <form onSubmit={handleSubmit} className="space-y-6  mx-auto p-6 bg-white rounded-lg ">
       <h2 className="text-2xl font-bold text-center mb-6">Prescription Refill Request</h2>
       
       <div className="space-y-2">
-        <Label htmlFor="patientName">Patient Name</Label>
+        <Label htmlFor="PatientName">Patient Name</Label>
         <Input
-          id="patientName"
-          name="patientName"
-          value={formData.patientName}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="dateOfBirth">Date of Birth</Label>
-        <Input
-          id="dateOfBirth"
-          name="dateOfBirth"
-          type="date"
-          value={formData.dateOfBirth}
+          id="PatientName"
+          name="PatientName"
+          value={formData.PatientName}
           onChange={handleChange}
           required
         />
@@ -79,18 +61,6 @@ export default function Component() {
           name="contactNumber"
           type="tel"
           value={formData.contactNumber}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="email">Email Address</Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          value={formData.email}
           onChange={handleChange}
           required
         />

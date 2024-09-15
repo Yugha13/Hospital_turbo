@@ -7,12 +7,13 @@ import {  getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 const prisma = new PrismaClient();
 
 export const POST = async (req : NextRequest) => {
-
+    const { getUser } = getKindeServerSession();
+    const { email } = await getUser() as any;
     const datas = await req.json();
     const isVer = userAppointment.safeParse(datas);
     // console.log(isVer.error?.formErrors);
-    const { getUser } = getKindeServerSession();
-    const { email } = await getUser() as any;
+    // console.log(email);
+    
     const docemail = datas.doctorEmail;
     datas.doctorEmail = undefined;
     if(!isVer.success) return NextResponse.json({mes: isVer.error.formErrors})
@@ -25,6 +26,7 @@ export const POST = async (req : NextRequest) => {
                 appointments: {
                     create: {
                     ...datas, date: new Date(datas.date), email
+                    
                     }
                 }
             },

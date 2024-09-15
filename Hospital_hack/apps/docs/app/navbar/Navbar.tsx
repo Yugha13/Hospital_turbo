@@ -24,7 +24,7 @@ export default function Component() {
       <div className="flex items-center">
         <Link href="/" className="flex items-center" prefetch={false}>
           <HospitalIcon className="h-8 w-8 text-primary" />
-          <span className="ml-2 text-lg font-bold">YuSab</span>
+          <span className="ml-2 text-lg font-bold">XYZ</span>
         </Link>
       </div>
       <nav className="hidden space-x-20 md:flex">

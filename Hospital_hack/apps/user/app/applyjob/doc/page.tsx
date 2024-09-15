@@ -6,7 +6,7 @@ import { Input } from "@repo/ui/components/ui/input"
 import { Textarea } from "@repo/ui/components/ui/textarea"
 import { Button } from "@repo/ui/components/ui/button"
 import { toast } from "@repo/ui/hooks/use-toast"
-import {} from "@repo/zod"
+
 
 
 export default function ApplyJob() {

@@ -20,13 +20,16 @@ export const GET = async(req : NextRequest) => {
 }
 
 
+
 export const PUT = async (req : NextRequest) => {
     const { getUser } = getKindeServerSession();
     const { email } = await getUser() as any;
     const datas = await req.json();
-    docInfoSchema.safeParse(datas);
+    const err = docInfoSchema.safeParse(datas);
+    // console.log(err);
+    
     try {
-        await prisma.doctorInfo.update({
+        const info = await prisma.doctorInfo.update({
             where : {
                 email
             },
@@ -34,12 +37,12 @@ export const PUT = async (req : NextRequest) => {
                 ...datas
             }
         });
-
+        // console.log(info);
+        
         return NextResponse.json({mes: "done"})
     } catch (e) {
         // console.log(e);
         return NextResponse.json({mes: "not done"})
-        
     }
 }
 

@@ -7,16 +7,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 model Patient {
-  id            Int               @id       @default(autoincrement())
-  email         String            @unique
-  password      String?
-  patientInfo   PatientInfo? 
-  appointments  Appointment[]     @relation("PatientAppointments")
-  pillrefill    PillRefill[]
-  medicalHistory MedicalHistory[]
-  paymentHistory PaymentHistory[]
-  reviews       Review[]
+  id              Int               @id       @default(autoincrement())
+  email           String            @unique
+  password        String?
+  patientInfo     PatientInfo? 
+  appointments    Appointment[]     @relation("PatientAppointments")
+  pillrefill      PillRefill[]
+  paymentHistory  PaymentHistory[]
+  reviews         Review[]
+  prescription    Prescription[]
+  labResult       LabResult[]
 }
 
 model PatientInfo {
@@ -33,13 +35,13 @@ model PatientInfo {
 }
 
 model Doctor {
-  id            Int            @id     @default(autoincrement())
-  email         String         @unique
-  password      String?
-  appointments  Appointment[]  @relation("DoctorAppointments")
-  doctorinfo    DoctorInfo?
-  reviews       Review[]
-  medicalHistory MedicalHistory[]
+  id              Int            @id     @default(autoincrement())
+  email           String         @unique
+  password        String?
+  appointments    Appointment[]  @relation("DoctorAppointments")
+  doctorinfo      DoctorInfo?
+  reviews         Review[]
+  prescription    Prescription[]
 }
 
 model DoctorInfo {
@@ -49,8 +51,8 @@ model DoctorInfo {
   gender          String
   email           String   @unique
   phone           String
-  specialist      String
-  experiance      Int
+  specialist      String?
+  experience      String?
   doctor          Doctor   @relation(fields: [email], references: [email])
 }
 
@@ -64,8 +66,42 @@ model Appointment {
   email        String
   doctorEmail  String
   reason       String
+  docreason    String?
+  status       AppointmentStatus    @default(PENDING)
   patient      Patient    @relation("PatientAppointments", fields: [email], references: [email])
+  createdAt           DateTime  @default(now())
 }
+
+enum AppointmentStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+model Prescription {
+  id                  Int       @id     @default(autoincrement())
+  prescriptionNumber  String    @unique
+  medication          String
+  diagnosis           String
+  dosage              String
+  name                String
+  patientEmail        String
+  doctorEmail         String
+  patient             Patient   @relation(fields: [patientEmail], references: [email])
+  doctor              Doctor    @relation(fields: [doctorEmail], references: [email])
+  createdAt           DateTime  @default(now())
+}
+
+
+model LabResult {
+  id          Int     @id     @default(autoincrement())
+  email       String
+  test        String
+  date        String
+  result      String
+  patient     Patient   @relation(fields: [email], references: [email])
+}
+
 
 model PillRefill {
   id                Int    @id @default(autoincrement())
@@ -76,22 +112,9 @@ model PillRefill {
   patientEmail       String
   patient            Patient    @relation(fields: [patientEmail], references: [email])
   PatientName        String
-  dateOfBirth        DateTime
   contactNumber      String
-  emailAddress       String
 }
 
-model MedicalHistory {
-  id            Int      @id @default(autoincrement())
-  date          DateTime @default(now())
-  patientEmail  String
-  patient       Patient  @relation(fields: [patientEmail], references: [email])
-  patientName   String
-  phone         String
-  doctorEmail   String
-  doctor        Doctor   @relation(fields: [doctorEmail], references: [email])
-  doctorName    String
-}
 
 model Review {
   id            Int      @id @default(autoincrement())
@@ -112,4 +135,3 @@ model PaymentHistory {
   patientName    String
   status         String   // e.g., cancelled, processing, success
 }
-

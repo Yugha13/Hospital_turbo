@@ -12,7 +12,7 @@ export default function Component() {
             <AvatarFallback>CG</AvatarFallback>
           </Avatar>
           <div>
-            <div className="font-medium">YuSab</div>
+            <div className="font-medium">XYZ</div>
             <div className="text-sm text-muted-foreground">Online</div>
           </div>
         </div>

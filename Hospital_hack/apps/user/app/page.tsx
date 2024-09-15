@@ -19,10 +19,10 @@ export default function Component() {
                 ALL HEALTH,<br/> NO EXCUSES...
                 </h1>
                 <p className="text-muted-foreground text-lg mt-1">
-                  Welcome to YuSab, where compassionate care meets advanced medical expertise. We are dedicated to providing exceptional healthcare services to ensure the well-being and comfort of every patient.
+                  Welcome to XYZ, where compassionate care meets advanced medical expertise. We are dedicated to providing exceptional healthcare services to ensure the well-being and comfort of every patient.
                 </p>
                 <p className="text-muted-foreground text-lg mt-1">
-                Experience compassionate care and cutting-edge medical treatments at YuSab, where your health and well-being are our top priorities
+                Experience compassionate care and cutting-edge medical treatments at XYZ, where your health and well-being are our top priorities
                 </p>
                 <Link href="/alldocs">
                   <Button>Book Appointment</Button>
@@ -48,7 +48,7 @@ export default function Component() {
                   <div className="bg-primary rounded-full p-2">
                     <Pill className="h-6 w-6 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold">Prescription Refill</h3>
+                  <h3 className="text-xl font-semibold">Pills Refill Request</h3>
                 </div>
                 <p className="text-muted-foreground">
                 Conveniently request prescription refills online, and have your medications ready for pickup or delivery without the need for an in-person visit.

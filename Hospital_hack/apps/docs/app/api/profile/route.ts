@@ -4,20 +4,21 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 const prisma = new PrismaClient();
+
 export const GET = async (req:NextRequest) => {
     const {getUser} = getKindeServerSession();
     const {email} = await getUser() as any;
 
     if(!email) return NextResponse.json({status: 405});
 
-    const userData = await prisma.patient.findFirst({
+    const userData = await prisma.doctor.findFirst({
         where: {
             email
         },
         include: {
-            patientInfo: true
+            doctorinfo: true
         }
     });
     // console.log(userData);
-    return NextResponse.json({info: userData?.patientInfo})
+    return NextResponse.json({info: userData?.doctorinfo})
 }

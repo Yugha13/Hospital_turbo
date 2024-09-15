@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 const prisma = new PrismaClient();
+
 export const GET = async (req:NextRequest) => {
     const {getUser} = getKindeServerSession();
     const {email} = await getUser() as any;

@@ -1,23 +1,50 @@
+"use client"
+
 import { Button } from "@repo/ui/components/ui/button"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@repo/ui/components/ui/dropdown-menu"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@repo/ui/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@repo/ui/components/ui/avatar"
-import { Badge } from "@repo/ui/components/ui/badge"
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@repo/ui/components/ui/table"
-import { MessageCircle, Notebook } from "lucide-react"
-
-
+import { MessageCircle, Notebook, PillIcon, SearchIcon } from "lucide-react"
+import Link from "next/link"
+import { AppReq} from "../Appointment"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import UpAppoint from "./UpAppoint"
+import { Input } from "@repo/ui/components/ui/input"
 
 
 export default function Component() {
+  const [info, setInfo] = useState([] as any);
+  const [upcoming, setUpcoming] = useState([] as any);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const res = await axios.get("/api/viewappointment");
+      const hisres = await axios.get("/api/hisappoint");
+      const appoint = hisres.data.info;
+      const appoints = res.data.info;  
+      
+      const now = new Date();
+      const upcomingAppointments = appoint?.filter((app: any) => new Date(app.date) > now);
+      // console.log(upcomingAppointments);
+      
+      setInfo(appoints);
+      setUpcoming(upcomingAppointments);
+    })() 
+  }, []);
+  const filteredAppointments = upcoming?.filter((upcoming:any) => 
+    upcoming.name.toLowerCase().includes(search.toLowerCase()),
+  )
+  
+
+
   return (
     
     <div className="flex flex-col w-screen bg-muted/40 ">
-      
       <div className="flex gap-2 my-4">
-        
         <main className="flex-1 sm:py-0 md:space-y-8">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 px-3">
+
             <Card>
               <CardHeader>
                 <CardTitle>View Appointments</CardTitle>
@@ -25,60 +52,17 @@ export default function Component() {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="border">
-                        <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                        <AvatarFallback>JD</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">John Doe</div>
-                        <div className="text-sm text-muted-foreground">10:00 AM - 10:30 AM</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-3">
-                      <Button variant={'outline'}>Accept</Button>
-                      <Button variant={'destructive'}>Decline</Button>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="border">
-                        <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                        <AvatarFallback>JA</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">Jane Appleseed</div>
-                        <div className="text-sm text-muted-foreground">2:00 PM - 2:30 PM</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-3">
-                      <Button variant={'outline'}>Accept</Button>
-                      <Button variant={'destructive'}>Decline</Button>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="border">
-                        <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                        <AvatarFallback>SM</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">Sarah Miller</div>
-                        <div className="text-sm text-muted-foreground">4:00 PM - 4:30 PM</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-3">
-                      <Button variant={'outline'}>Accept</Button>
-                      <Button variant={'destructive'}>Decline</Button>
-                    </div>
-                  </div>
+                {info?.slice(0, 2).map((i:any) => <AppReq info={i}/>)}
                 </div>
               </CardContent>
               <CardFooter>
+                <Link href="/appointment">
                 <Button size="sm">View All</Button>
+                </Link>
               </CardFooter>
             </Card>
+
+
             <Card>
               <CardHeader>
                 <CardTitle>Patients Record</CardTitle>
@@ -137,6 +121,8 @@ export default function Component() {
                 <Button size="sm">View All</Button>
               </CardFooter>
             </Card>
+
+
             <Card>
               <CardHeader>
                 <CardTitle>Quick Actions</CardTitle>
@@ -159,155 +145,33 @@ export default function Component() {
                 </div>
               </CardContent>
             </Card>
+
           </div>
-          <Card className="w-screen">
-            <CardHeader>
-              <CardTitle>Upcoming Appointments</CardTitle>
-              <CardDescription>View your upcoming patient appointments.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Patient</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Time</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>
-                      <span className="sr-only">Actions</span>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Avatar className="border">
-                          <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                          <AvatarFallback>JD</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-medium">John Doe</div>
-                          <div className="text-sm text-muted-foreground">johndoe@example.com</div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>2023-05-15</TableCell>
-                    <TableCell>10:00 AM - 10:30 AM</TableCell>
-                    <TableCell>
-                      <Badge variant="secondary">Confirmed</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button size="icon" variant="ghost">
-                            <MoveHorizontalIcon className="h-4 w-4" />
-                            <span className="sr-only">More actions</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuItem>Cancel</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Avatar className="border">
-                          <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                          <AvatarFallback>JA</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-medium">Jane Appleseed</div>
-                          <div className="text-sm text-muted-foreground">janeappleseed@example.com</div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>2023-05-16</TableCell>
-                    <TableCell>2:00 PM - 2:30 PM</TableCell>
-                    <TableCell>
-                      <Badge variant="secondary">Confirmed</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button size="icon" variant="ghost">
-                            <MoveHorizontalIcon className="h-4 w-4" />
-                            <span className="sr-only">More actions</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuItem>Cancel</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Avatar className="border">
-                          <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                          <AvatarFallback>SM</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-medium">Sarah Miller</div>
-                          <div className="text-sm text-muted-foreground" />
-                        </div>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+          <div className="bg-background text-foreground p-6 sm:p-10">
+            <div className=" mx-auto">
+              <div className="flex items-center justify-between mb-6">
+                <h1 className="text-2xl font-semibold">Upcoming Appointments</h1>
+                <div className="relative w-full max-w-md">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <SearchIcon className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <Input
+                    type="text"
+                    placeholder="Search appointments..."
+                    className="pl-10 pr-4 py-2 rounded-lg bg-muted text-foreground w-full"
+                    value={search}
+                    onChange={(e:any) => setSearch(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="grid gap-4">
+                
+                {filteredAppointments?.map((i:any)=>  <UpAppoint upcoming={i}/>)}
+              </div>
+            </div>
+          </div>
         </main>
       </div>
     </div>
-  )
-}
-
-
-function MoveHorizontalIcon(props:any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="18 8 22 12 18 16" />
-      <polyline points="6 8 2 12 6 16" />
-      <line x1="2" x2="22" y1="12" y2="12" />
-    </svg>
-  )
-}
-
-
-function PillIcon(props:any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" />
-      <path d="m8.5 8.5 7 7" />
-    </svg>
   )
 }

@@ -6,10 +6,11 @@ const prisma = new PrismaClient();
 
 export const POST = async (req:NextRequest) => {
     try {
-        const {id}:any = req.body;
+        const {id}:any = await req.json();
+        // console.log(id);
         const {email}:any = await prisma.doctor.findFirst({
             where: {
-                id
+                id:+id
             }
         });
 

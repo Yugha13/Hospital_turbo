@@ -8,7 +8,7 @@ const Records = () => {
         <Card>
           <CardHeader className="flex items-center justify-between">
             <CardTitle>Medical Records</CardTitle>
-            <Link href="#" className="text-sm text-primary" prefetch={false}>
+            <Link href="/medhis" className="text-sm text-primary" prefetch={false}>
               View All
             </Link>
           </CardHeader>
@@ -18,18 +18,22 @@ const Records = () => {
                 <div className="font-medium">Lab Results</div>
                 <div className="text-sm text-muted-foreground">Last updated: April 10, 2023</div>
               </div>
+              <Link href="/labresult">
               <Button variant="outline" size="sm">
                 View
               </Button>
+              </Link>
             </div>
             <div className="flex items-center justify-between">
               <div>
                 <div className="font-medium">Prescriptions</div>
                 <div className="text-sm text-muted-foreground">Last updated: May 1, 2023</div>
               </div>
+              <Link href="/viewpres">
               <Button variant="outline" size="sm">
                 View
               </Button>
+              </Link>
             </div>
             <div className="flex items-center justify-between">
               <div>

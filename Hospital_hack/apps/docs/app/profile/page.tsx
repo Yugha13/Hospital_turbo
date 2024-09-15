@@ -16,7 +16,7 @@ export default function Component() {
     useEffect(() => {
         (async() => {
             const user = await axios.get("/api/profile");
-            console.log(user.data.info);
+            // console.log(user.data.info);
             
             setInfo(user.data.info)
             // const dateString = "2024-09-11T00:00:00.000Z";
@@ -29,7 +29,7 @@ export default function Component() {
       e.preventDefault();
       // console.log(formData);
       
-      const err = await axios.put("/api/healthcheck", {...formData});
+      const err = await axios.put("/api/doccheck", {...formData});
       // console.log(err);
 
     }
@@ -123,7 +123,7 @@ export default function Component() {
                     defaultValue={info.experience}
                     onChange={handleChange}
                     type="number"
-                    id="experiance"
+                    id="experience"
                     className="w-full px-3 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
                   />
                 </div>

@@ -17,10 +17,10 @@ export default function Component() {
                 ALL HEALTH,<br/> NO EXCUSES...
                 </h1>
                 <p className="text-muted-foreground text-lg mt-1">
-                  Welcome to YuSab, where compassionate care meets advanced medical expertise. We are dedicated to providing exceptional healthcare services to ensure the well-being and comfort of every patient.
+                  Welcome to XYZ, where compassionate care meets advanced medical expertise. We are dedicated to providing exceptional healthcare services to ensure the well-being and comfort of every patient.
                 </p>
                 <p className="text-muted-foreground text-lg mt-1">
-                Experience compassionate care and cutting-edge medical treatments at YuSab, where your health and well-being are our top priorities
+                Experience compassionate care and cutting-edge medical treatments at XYZ, where your health and well-being are our top priorities
                 </p>
                 
               </div>
@@ -44,18 +44,18 @@ export default function Component() {
                   <div className="bg-primary rounded-full p-2">
                     <Pill className="h-6 w-6 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold">Patient Refill Request</h3>
+                  <h3 className="text-xl font-semibold">Write Priscription</h3>
                 </div>
                 <p className="text-muted-foreground">
-                  View the prescription refills request, Accept or Decline and have your Patient's medications ready for pickup or delivery without the need for an their visit.
+                  Write Prescription for your patients and send them as soon as possible.
                 </p>
                 <div className="py-3">
                 <Link
-                  href="/viewreq"
+                  href="/prescription"
                   className="text-primary font-medium mt-4 inline-flex items-center gap-1 absolute bottom-4"
                   prefetch={false}
                   >
-                  View Request
+                  Write Now
                   <ArrowRightIcon className="h-4 w-4" />
                 </Link>
                 </div>

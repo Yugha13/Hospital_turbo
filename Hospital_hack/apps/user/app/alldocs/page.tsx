@@ -19,7 +19,7 @@ const DocCard = ({info}:any) => {
             <div className="flex items-center mb-2">
               <Avatar className="w-10 h-10 mr-3">
                 
-                <AvatarFallback>JS</AvatarFallback>
+                <AvatarFallback>{info.name[0]+info.name[1]}</AvatarFallback>
               </Avatar>
               <div>
                 <h3 className="text-lg font-semibold">{info.name}</h3>
@@ -52,7 +52,7 @@ export default function ViewDoc() {
     (async () => {
       const res = await axios.get("/api/alldocs");
       const docData = res.data.info;  
-      console.log(docData);
+      // console.log(docData);
       // console.log();
       
       setInfo(docData);
@@ -61,7 +61,7 @@ export default function ViewDoc() {
   
   // console.log(info);
   
-  const navigate = useRouter();
+  
   return (
     <div className="container mx-auto py-8 px-4 md:px-6 lg:px-8">
       <div className="mb-8">
