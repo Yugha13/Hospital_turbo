@@ -19,6 +19,7 @@ const Content = ({appoint}:any) =>{
       <div>
         <div className="font-medium">Appointment with Dr. Smith</div>
         <div className="text-sm text-muted-foreground">{month}</div>
+        <div className="text-sm text-muted-foreground">Time : {appoint.time}</div>
       </div>
     </div>
   </div>
@@ -33,14 +34,14 @@ const Appointment = ({appoint}:any) => {
     const now = new Date();
     setupappoint(appoint.filter((i:any)=> new Date(i.date) > now));
   },[]);
-  console.log(upappoint);  
+  // console.log(upappoint);  
 
   return (
       <Card className="relative">
             <CardHeader>
               <CardTitle>Upcoming Appointments</CardTitle>
             </CardHeader>
-            {appoint.map((i:any)=> <Content appoint = {i}/>)}
+            {appoint.slice(0,3).map((i:any)=> <Content appoint = {i}/>)}
             <CardFooter className="flex justify-between absolute bottom-0 w-full">
               <Link href="/history" target="_blank" className="text-sm font-medium" prefetch ={false}>
                 View all appointments

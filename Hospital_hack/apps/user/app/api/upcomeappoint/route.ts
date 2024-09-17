@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export const GET = async ( req : NextRequest ) => {
     const { getUser } = getKindeServerSession();
     const { email } = await getUser() as any;
-    console.log("email-",email);
+    // console.log("email-",email);
     
     try {
         const appointments = await prisma.patient.findMany({
@@ -18,12 +18,14 @@ export const GET = async ( req : NextRequest ) => {
             include : {
                 appointments : {
                     where : {
-                        status : "ACCEPTED"
+                        status: {
+                            in: ["ACCEPTED", "DECLINED"],
+                        }, 
                     }
                 }
             }
         });
-        console.log(appointments);
+        // console.log(appointments);
         return NextResponse.json({info:appointments})
     } catch (e) {
         console.log(e);

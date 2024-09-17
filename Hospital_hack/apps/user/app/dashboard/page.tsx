@@ -13,13 +13,13 @@ import axios from "axios"
 export default function Component() {
   const [info, setInfo] = useState([] as any);
  const [appoint, setappoint] = useState([] as any);
-
+ 
 
   useEffect(() => {
     (async () => {
       const {data} = await axios.get("/api/upcomeappoint");
       setInfo(data.info);
-      // console.log(data.info);
+      console.log("data - ",data.info);
       data.info.map((i:any) => setappoint(i.appointments));   
     })();
   }, []);
@@ -36,7 +36,7 @@ export default function Component() {
       <main className="flex-1 grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3 lg:p-6 h-full"> 
         <Appointment appoint = {appoint}/>
         <Message/>
-        <Notifiaction/>
+        <Notifiaction appoint = {appoint}/>
         <Records/>
         <Payment/> 
       </main>

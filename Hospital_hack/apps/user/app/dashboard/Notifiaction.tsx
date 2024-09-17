@@ -1,9 +1,32 @@
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@repo/ui/components/ui/card"
-import { BellIcon, CheckIcon } from "lucide-react"
+import { Ban, BellIcon, CheckIcon } from "lucide-react"
 import Link from "next/link"
+import { format } from 'date-fns';
 
 
-const Notifiaction = () => {
+const NotiCard = ({info}:any) => {
+  const month = format(info.date, "dd MMMM yyyy");
+  console.log(info.status);
+  const color = (info.status == "ACCEPTED")? "bg-green-400" : "bg-red-400";
+  const docstatus = (info.status == "ACCEPTED")? "Confirmed" : "Declined";
+    return(
+    <div className="grid grid-cols-[auto_1fr] items-center gap-4">
+      <div className={`rounded-full ${color} p-3 text-white`}>
+        {(info.status=="ACCEPTED")? <CheckIcon className="h-5 w-5" /> : <Ban className="h-5 w-5" />}
+      </div>
+      <div className="p-2">
+        <div className="font-medium ">Your appointment with Dr. Smith was {docstatus}</div>
+        <div className="text-sm text-muted-foreground">Updated on {month}</div>
+        {(info.status =="DECLINED")?<div className="text-sm text-muted-foreground">Reason : {info.docreason}</div>:<div></div>}
+      </div>
+    </div>
+  )
+}
+
+
+const Notifiaction = ({appoint}:any) => {
+  console.log("appoint from notification ", appoint);
+  
   return (
         <Card className="relative">
             <CardHeader>
@@ -11,24 +34,7 @@ const Notifiaction = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4">
-                <div className="grid grid-cols-[auto_1fr] items-center gap-4">
-                  <div className="rounded-full bg-blue-500 p-2 text-white">
-                    <BellIcon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="font-medium">Your prescription is ready for pickup</div>
-                    <div className="text-sm text-muted-foreground">Updated 1 hour ago</div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-[auto_1fr] items-center gap-4">
-                  <div className="rounded-full bg-green-500 p-2 text-white">
-                    <CheckIcon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="font-medium">Your appointment with Dr. Smith was confirmed</div>
-                    <div className="text-sm text-muted-foreground">Updated 2 days ago</div>
-                  </div>
-                </div>
+                {appoint.slice(0,3).map((i:any)=> <NotiCard info = {i}/>)}
               </div>
             </CardContent>
             <CardFooter className="absolute bottom-0 right-0">
@@ -40,4 +46,5 @@ const Notifiaction = () => {
   )
 }
 
-export default Notifiaction
+
+export default Notifiaction;
