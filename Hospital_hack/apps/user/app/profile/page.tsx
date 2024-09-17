@@ -7,6 +7,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Textarea } from "@repo/ui/components/ui/textarea";
+import { useToast } from "@repo/ui/hooks/use-toast"
+import { ToastAction } from "@repo/ui/components/ui/toast"
+
 
 
 export default function Component() {
@@ -24,12 +27,18 @@ export default function Component() {
             // console.log("emeNum ",user.data.info.emergencyNumber);
         })()
     }, [])
-    
+
+    const { toast } = useToast()
+
     const handleSubmit = async(e : any) => {
       e.preventDefault();
       // console.log(formData);
       const err = await axios.put("/api/patientcheck", {...formData});
       // console.log(err);
+      toast({
+        title: "Profile Updated:",
+        description: "your profile has been updated"
+      })
     }
 
     const handleChange = (e:any)  => {
@@ -47,7 +56,7 @@ export default function Component() {
         </div>
     )
     }
-    const imgs = (info.gender=="female" ? 
+    const imgs = (info?.gender=="female" ? 
       ("https://wallpapers.com/images/hd/pink-angel-cool-profile-picture-wcjxfrrq0kjq98yb.jpg"
     ):(
       "https://i.pinimg.com/736x/d3/7e/84/d37e843d31252c02e0b6119d126d6014.jpg"

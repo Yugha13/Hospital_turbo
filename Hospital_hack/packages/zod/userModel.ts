@@ -44,10 +44,10 @@ const userAppointment = z.object({
 
 const docPrescrip = z.object({
   patientEmail        : z.string().email(),
-  prescriptionNumber  : z.string(),
   medication          : z.string(),
   dosage              : z.string(),
-  diagnosis           : z.string(),
+  quantity            : z.string(),
+  takein              : z.string(),
   name                : z.string()
 })
 

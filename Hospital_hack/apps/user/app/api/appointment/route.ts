@@ -10,8 +10,10 @@ export const POST = async (req : NextRequest) => {
     const { getUser } = getKindeServerSession();
     const { email } = await getUser() as any;
     const datas = await req.json();
+    console.log(datas);
+    
     const isVer = userAppointment.safeParse(datas);
-    // console.log(isVer.error?.formErrors);
+    console.log(isVer.error?.formErrors);
     // console.log(email);
     
     const docemail = datas.doctorEmail;

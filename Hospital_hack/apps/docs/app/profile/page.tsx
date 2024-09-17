@@ -5,11 +5,14 @@ import { Button } from "@repo/ui/components/ui/button";
 import { Mail, Phone, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useToast } from "@repo/ui/hooks/use-toast"
+import { ToastAction } from "@repo/ui/components/ui/toast"
 
 
 
 
 export default function Component() {
+  const { toast } = useToast();
     const [info, setInfo] = useState({} as any);
     const [formData, setFormData] = useState({});
 
@@ -17,20 +20,22 @@ export default function Component() {
         (async() => {
             const user = await axios.get("/api/profile");
             // console.log(user.data.info);
-            
             setInfo(user.data.info)
-            // const dateString = "2024-09-11T00:00:00.000Z";
-            // const date = new Date(user.data.info.dob);        
-            // console.log("emeNum ",user.data.info.emergencyNumber);
         })()
     }, [])
     
     const handleSubmit = async(e : any) => {
       e.preventDefault();
       // console.log(formData);
-      
       const err = await axios.put("/api/doccheck", {...formData});
       // console.log(err);
+      toast({
+        title: "Profile Updated:",
+        description: "Your profile has been updated",
+        action: (
+          <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+        ),
+      })
 
     }
 
@@ -42,7 +47,7 @@ export default function Component() {
       
     }
 
-    const imgs = (info.gender=="female" ? 
+    const imgs = (info?.gender=="female" ? 
       ("https://wallpapers.com/images/hd/pink-angel-cool-profile-picture-wcjxfrrq0kjq98yb.jpg"
     ):(
       "https://i.pinimg.com/736x/d3/7e/84/d37e843d31252c02e0b6119d126d6014.jpg"

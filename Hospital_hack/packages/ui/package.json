@@ -6,6 +6,9 @@
     "ui": "pnpm dlx shadcn@latest",
     "lint": "eslint ."
   },
+  "export": {
+    "sonner": "./sonner.tsx"
+  },
   "peerDependencies": {
     "react": "^18"
   },

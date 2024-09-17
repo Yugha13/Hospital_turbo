@@ -1,72 +1,76 @@
 "use client"
 
-import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui/components/ui/card"
-import { Label } from "@repo/ui/components/ui/label"
-import { Input } from "@repo/ui/components/ui/input"
-import { Textarea } from "@repo/ui/components/ui/textarea"
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@repo/ui/components/ui/table"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { format } from 'date-fns';
+// Group prescriptions by date
+const groupByDate = (prescriptions: any[]) => {
+  return prescriptions.reduce((groups: any, prescription: any) => {
+    const { date } = prescription;
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+    groups[date].push(prescription);
+    return groups;
+  }, {});
+};
 
-
-
-const Prescription = ({info}:any) => {
+// Prescription Table Component
+const PrescriptionTable = ({ date, prescriptions }: { date: string, prescriptions: any[] }) => {
+  const month = format(date, "dd MMMM yyyy");
+  
   return (
-    <Card className="w-full max-w-xl">
-      <CardHeader>
-       <b>Doctor Name : {info.name}</b>
-      </CardHeader>
-      <CardContent className="grid gap-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="email">Patient Email</Label>
-            <Input id="email" value={info.patientEmail} readOnly />
-          </div>
-          <div>
-            <Label htmlFor="medication">Medication</Label>
-            <Input id="medication" value={info.medication }readOnly />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="diagnosis">Diagnosis</Label>
-            <Input id="diagnosis" value={info.diagnosis} readOnly />
-          </div>
-          <div>
-            <Label htmlFor="prescription">Prescription Number</Label>
-            <Input id="prescription" value={info.prescriptionNumber} readOnly />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-        <div>
-          <Label htmlFor="dosage">Dosage</Label>
-          <Input id="dosage" value={info.dosage} readOnly />
-        </div>
-        
-        </div>
-        
-      </CardContent>
-    </Card>
-  )
-}
+    <div className="border rounded-lg overflow-hidden mb-4">
+      <div className="bg-primary text-primary-foreground px-6 py-4 font-medium">Slot Date - {month}</div>
+      <div className="p-6">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Doctor Name</TableHead>
+              <TableHead>Tablet</TableHead>
+              <TableHead>Dosage</TableHead>
+              <TableHead>Quantity</TableHead>
+              <TableHead>When to Take</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {prescriptions.map((prescription: any) => (
+              <TableRow key={prescription.id}>
+                <TableCell>{prescription.name}</TableCell>
+                <TableCell>{prescription.medication}</TableCell>
+                <TableCell>{prescription.dosage}mg</TableCell>
+                <TableCell>{prescription.quantity}</TableCell>
+                <TableCell>{prescription.takein}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
+};
 
+// Main Component
 export default function Component() {
   const [info, setInfo] = useState([] as any);
-  console.log(info);
   
   useEffect(() => {
-    (async() => {
-      const datas = await axios.get("/api/viewprescrip")
-      // console.log(datas.data.info);
-      setInfo(datas.data.info);
-    })()
-  },[])
+    (async () => {
+      const { data } = await axios.get("/api/viewprescrip");
+      setInfo(data.info);
+    })();
+  }, []);
+
+  // Group prescriptions by date
+  const groupedPrescriptions = groupByDate(info);
 
   return (
-    <div>
-      <CardHeader className="font-bold text-center text-2xl">Prescriptions</CardHeader>
-    <div className="grid md:grid-cols-2 2xl:grid-cols-3 gap-9 m-5">
-      {info?.map((i:any) => <Prescription info = {i} />)}
+    <div className="grid gap-8 max-w-4xl mx-auto px-4 py-8">
+      <div className="text-center font-mono font-extrabold text-xl">Prescriptions</div>
+      {Object.keys(groupedPrescriptions).map((date) => (
+        <PrescriptionTable key={date} date={date} prescriptions={groupedPrescriptions[date]} />
+      ))}
     </div>
-    </div>
-  )
+  );
 }

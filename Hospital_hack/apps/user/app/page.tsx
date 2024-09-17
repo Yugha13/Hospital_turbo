@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 import { Button } from "@repo/ui/components/ui/button"
 import { AppWindow, Edit, FormInput, FormInputIcon, Lock, Pill, Stethoscope, Workflow } from "lucide-react"
@@ -5,11 +6,10 @@ import Review from "./Review"
 
 
 
-
 export default function Component() {
+
   return (
     <div className="bg-background text-foreground">
-
       <main>
         <section className="py-12 md:py-16 lg:py-20">
           <div className="container mx-auto px-4 md:px-6 ">

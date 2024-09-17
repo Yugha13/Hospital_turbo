@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@repo/ui/globals.css";
 import Navbar from "./navbar/Navbar";
+import { Toaster } from "@repo/ui/components/ui/toaster";
 // import { Toaster } from "@repo/ui/components/ui/sonner"
 
 
@@ -27,7 +28,7 @@ export default function RootLayout({
           {/* <div className="grid place-items-center h-screen w-full"> */}
           <main>{children}</main>
           {/* </div> */}
-          {/* <Toaster/> */}
+          <Toaster />
       </body>
     </html>
   );

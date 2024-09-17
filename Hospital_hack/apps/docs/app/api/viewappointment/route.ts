@@ -40,6 +40,7 @@ export const POST = async( req : NextRequest ) => {
           status, 
           docreason : reason
         },
+        
       });
       // console.log(updatedApp);
       

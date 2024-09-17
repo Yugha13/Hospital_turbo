@@ -52,8 +52,7 @@ export default function ViewDoc() {
     (async () => {
       const res = await axios.get("/api/alldocs");
       const docData = res.data.info;  
-      // console.log(docData);
-      // console.log();
+      console.log(docData);
       
       setInfo(docData);
     })() 

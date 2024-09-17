@@ -9,7 +9,9 @@ import { AppHistory, AppReq, UpcomingApp} from "../Appointment"
 
 
 
+
 export default function Component() {
+  
   const [info, setInfo] = useState([] as any);
   const [upcoming, setUpcoming] = useState([] as any);
   const [hist, sethist] = useState([] as any);
@@ -22,7 +24,7 @@ export default function Component() {
       const appoints = res.data.info;  
 
       const now = new Date();
-      const upcomingAppointments = appoint?.filter((app: any) => new Date(app.date) > now);
+      const upcomingAppointments = appoint?.filter((app: any) => (new Date(app.date) > now ));
       const finishedAppointments = appoint?.filter((app: any) => new Date(app.date) <= now);
       
       setInfo(appoints);

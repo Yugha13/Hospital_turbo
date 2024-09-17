@@ -5,8 +5,12 @@ import { Input } from "@repo/ui/components/ui/input"
 import { Textarea } from "@repo/ui/components/ui/textarea"
 import { Label } from "@repo/ui/components/ui/label"
 import axios from 'axios'
+import { useToast } from "@repo/ui/hooks/use-toast"
+import { ToastAction } from "@repo/ui/components/ui/toast"
+
 
 export default function Component() {
+  const { toast } = useToast()
   const [formData, setFormData] = useState({
     PatientName: '',
     contactNumber: '',
@@ -35,6 +39,13 @@ export default function Component() {
       medicationName: '',
       prescribingDoctor: '',
       additionalNotes: ''
+    });
+    toast({
+      title: "Pill Request From:",
+      description: `from ${formData.PatientName} prescribed by ${formData.prescribingDoctor}`,
+      action: (
+        <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+      ),
     })
   }
 

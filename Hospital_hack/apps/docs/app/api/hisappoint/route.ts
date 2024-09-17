@@ -16,9 +16,16 @@ export const GET = async (req:NextRequest) => {
               doctorEmail: email,
               status: {
                 in: ["ACCEPTED", "DECLINED"],
-              },
+              }, 
+            },
+            orderBy: [
+              {date: 'asc'}, {time: 'asc'}
+            ],
+            include: {
+              patient: true
             }
           });
+
         // console.log(appointment);
         return NextResponse.json({info: appointment});
     } catch (e) {

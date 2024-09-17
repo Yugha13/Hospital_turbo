@@ -65,7 +65,7 @@ model Appointment {
   doctor       Doctor     @relation("DoctorAppointments", fields: [doctorEmail], references: [email])
   email        String
   doctorEmail  String
-  reason       String
+  reason       String?
   docreason    String?
   status       AppointmentStatus    @default(PENDING)
   patient      Patient    @relation("PatientAppointments", fields: [email], references: [email])
@@ -80,13 +80,14 @@ enum AppointmentStatus {
 
 model Prescription {
   id                  Int       @id     @default(autoincrement())
-  prescriptionNumber  String    @unique
   medication          String
-  diagnosis           String
   dosage              String
   name                String
+  date                String?
   patientEmail        String
   doctorEmail         String
+  quantity            String?
+  takein              String?
   patient             Patient   @relation(fields: [patientEmail], references: [email])
   doctor              Doctor    @relation(fields: [doctorEmail], references: [email])
   createdAt           DateTime  @default(now())

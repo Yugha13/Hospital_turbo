@@ -61,8 +61,6 @@ export default function Component() {
                 </Link>
               </CardFooter>
             </Card>
-
-
             <Card>
               <CardHeader>
                 <CardTitle>Patients Record</CardTitle>
@@ -121,36 +119,42 @@ export default function Component() {
                 <Button size="sm">View All</Button>
               </CardFooter>
             </Card>
-
-
             <Card>
               <CardHeader>
                 <CardTitle>Quick Actions</CardTitle>
                 <CardDescription>Quickly access common tasks in the clinic.</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-4">
-                  <Button size="sm">
-                    <PillIcon className="h-4 w-4 mr-2" />
-                    View Pill Request
-                  </Button>
-                  <Button size="sm">
-                    <Notebook className="h-4 w-4 mr-2" />
-                    Write Prescription
-                  </Button>
-                  <Button size="sm">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Consult Patients
-                  </Button>
+                <div className="grid gap-4 w-full">
+                 
+                    <Link href="/appointment">
+                      <div className="flex bg-blue-200 p-2 rounded-sm place-items-center justify-center hover:bg-blue-300 transition-colors">
+                      <PillIcon className="h-4 w-4 mr-2" />
+                      View Appointment
+                      </div>
+                    </Link>
+
+                    <Link href="/prescription">
+                      <div className="flex bg-blue-200 p-2 rounded-sm place-items-center justify-center hover:bg-blue-300 transition-colors">
+                        <Notebook className="h-4 w-4 mr-2" />
+                        Write Prescription
+                      </div>
+                    </Link>
+
+                    <Link href="/chat">
+                      <div className="flex bg-blue-200 p-2 rounded-sm place-items-center justify-center hover:bg-blue-300 transition-colors">
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        Consult Patients
+                      </div>
+                    </Link>
                 </div>
               </CardContent>
             </Card>
-
           </div>
           <div className="bg-background text-foreground p-6 sm:p-10">
             <div className=" mx-auto">
               <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-semibold">Upcoming Appointments</h1>
+                  <h1 className="text-2xl font-semibold">Upcoming Appointments</h1>
                 <div className="relative w-full max-w-md">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <SearchIcon className="w-5 h-5 text-muted-foreground" />
@@ -165,9 +169,13 @@ export default function Component() {
                 </div>
               </div>
               <div className="grid gap-4">
-                
                 {filteredAppointments?.map((i:any)=>  <UpAppoint upcoming={i}/>)}
               </div>
+              <Link href="/appointment">
+                <div className="mt-5 absolute right-5">
+                  <span className="text-primary font-serif p-3 hover:underline">View All</span>
+                </div>
+              </Link>
             </div>
           </div>
         </main>

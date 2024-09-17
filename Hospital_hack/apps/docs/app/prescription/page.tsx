@@ -6,20 +6,28 @@ import { Textarea } from "@repo/ui/components/ui/textarea";
 import { Button } from "@repo/ui/components/ui/button";
 import axios from "axios";
 import { useState } from "react";
+import { useToast } from "@repo/ui/hooks/use-toast"
+import { ToastAction } from "@repo/ui/components/ui/toast"
+
 
 
 export default function Component() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({});
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(formData);
-    
-    try {
-      const response = await axios.post("/api/prescription", { ...formData });
-      console.log("Response:", response);
-    } catch (error) {
-      // console.error("Errors:", error);
-    }
+    // console.log(formData);
+    const response = await axios.post("/api/prescription", { ...formData });
+    // console.log(response);
+    setFormData({} as any);
+    toast({
+      title: "Prescription sent:",
+      description: `Your prescription for has been sent`,
+      action: (
+        <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+      ),
+    })
   };
 
   const handleChange = (e: any) => {
@@ -28,77 +36,101 @@ export default function Component() {
   };
 
   return (
-    <div className="flex h-[95vh] place-items-center">
-      <Card className="w-full max-w-2xl mx-auto p-6 sm:p-8 md:p-10">
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold">Patient Prescription</CardTitle>
-          <CardDescription>
-            Fill out the details for the patient's prescription.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
-            <div className="space-y-4">
-              <div className="grid gap-2">
-                <Label htmlFor="patientEmail">Patient Email</Label>
-                <Input
-                  id="patientEmail"
-                  onChange={handleChange}
-                  placeholder="Enter patient's email"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="medication">Medication</Label>
-                <Input
-                  id="medication"
-                  onChange={handleChange}
-                  placeholder="Enter medication name"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="diagnosis">Diagnosis</Label>
-                <Textarea
-                  id="diagnosis"
-                  rows={3}
-                  onChange={handleChange}
-                  placeholder="Enter patient's diagnosis"
-                />
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="grid gap-2">
-                <Label htmlFor="prescriptionNumber">Prescription Number</Label>
-                <Input
-                  id="prescriptionNumber"
-                  onChange={handleChange}
-                  placeholder="Enter Prescription Number"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="dosage">Dosage</Label>
-                <Input
-                  id="dosage"
-                  onChange={handleChange}
-                  placeholder="Enter dosage"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="name">Doctor's Name</Label>
-                <Input
-                  id="name"
-                  onChange={handleChange}
-                  placeholder="Enter doctor's name"
-                />
-              </div>
-            </div>
-            <div className="col-span-full">
-              <Button type="submit" className="ml-auto">
-                Submit Prescription
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+    <div className="grid h-[90vh] place-items-center">
+    <Card className="w-full max-w-2xl">
+      <form onSubmit={handleSubmit}>
+      <CardHeader>
+        <CardTitle>Medication Prescription</CardTitle>
+        <CardDescription>Fill out the form to send a prescription to your patient.</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="medication">Medication Name</Label>
+            <Input 
+              id="medication"
+              value={formData?.medication || ""}
+              onChange={handleChange}
+              placeholder="Enter medication name" 
+              required 
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="dosage">Dosage</Label>
+            <Input 
+              id="dosage" 
+              onChange={handleChange}
+              value={formData?.dosage || ""}
+              placeholder="Enter dosage" 
+              required 
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="doctor">Doctor's Name</Label>
+            <Input 
+              id="name" 
+              onChange={handleChange}
+              value={formData?.name || ""}
+              placeholder="Enter doctor's name" 
+              required 
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="date">Date</Label>
+            <Input 
+              id="date" 
+              type="date" 
+              onChange={handleChange}
+              value={formData?.date || ""}
+              required 
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Patient's Email</Label>
+            <Input 
+              id="patientEmail" 
+              type="email" 
+              onChange={handleChange}
+              value={formData?.patientEmail || ""}
+              placeholder="Enter patient's email" 
+              required 
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="quantity">Quantity</Label>
+            <Input 
+              id="quantity" 
+              type="number" 
+              onChange={handleChange}
+              value={formData?.quantity || ""}
+              placeholder="Enter quantity" 
+              required 
+            />
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="take">When to take</Label>
+          <Textarea
+            id="takein"
+            onChange={handleChange}
+            value={formData?.takein || ""}
+            placeholder="Morning, Afternoon, Evening, Night"
+            className="min-h-[100px]"
+            required
+          />
+        </div>
+      </CardContent>
+      <CardFooter>
+        <Button type="submit" className="w-full">
+          Send Prescription
+        </Button>
+      </CardFooter>
+    </form>
+    </Card>
     </div>
-  );
+  )
 }

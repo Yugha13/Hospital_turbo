@@ -10,6 +10,8 @@ const prisma = new PrismaClient();
 export const POST = async ( req : NextRequest ) => {
     const { getUser } = getKindeServerSession();
     const { email } = await getUser() as any;
+    // console.log("email - ",email);
+    
     const datas = await req.json();
     const isVer = docPrescrip.safeParse(datas);
     // console.log(isVer);
@@ -30,7 +32,7 @@ export const POST = async ( req : NextRequest ) => {
         //   console.log(pres);
         return NextResponse.json({ message: "prescription is sent" }, { status: 201 });
     } catch (e) {
-        // console.log(e);
+        console.log(e);
         return NextResponse.json({ error: "An error occurred while creating the user" }, { status: 500 });
     }
 }
