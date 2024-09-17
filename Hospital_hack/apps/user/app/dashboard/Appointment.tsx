@@ -1,11 +1,10 @@
-
-
 import { Button } from "@repo/ui/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@repo/ui/components/ui/card"
 import { CalendarIcon } from "lucide-react"
 import Link  from "next/link"
 import { useEffect, useState } from "react"
 import { format } from 'date-fns';
+
 
 const Content = ({appoint}:any) =>{
   const month = format(appoint.date, "dd MMMM yyyy");

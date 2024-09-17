@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export const GET = async (req:NextRequest) => {
     const {getUser} = getKindeServerSession();
     const {email} = await getUser() as any;
-    // console.log(email);
+    console.log(email);
     if(!email) return NextResponse.json({status: 405});
     try {
         const appointment = await prisma.appointment.findMany({
@@ -17,10 +17,10 @@ export const GET = async (req:NextRequest) => {
               status: "PENDING",
             }
           });
-        // console.log("app: ", appointment);
+        console.log("app: ", appointment);
         return NextResponse.json({info: appointment});
     } catch (e) {
-        // console.log(e);
+        console.log(e);
         return NextResponse.json({error : e});
         
     }
@@ -29,7 +29,7 @@ export const GET = async (req:NextRequest) => {
 export const POST = async( req : NextRequest ) => {
   const { id, status, reason } : any = await req.json();
 
-  // console.log(status , reason);
+  console.log(status , reason);
   
     try {
       const updatedApp = await prisma.appointment.update({
@@ -42,11 +42,11 @@ export const POST = async( req : NextRequest ) => {
         },
         
       });
-      // console.log(updatedApp);
+      console.log(updatedApp);
       
       NextResponse.json({ success: true, info : updatedApp });
     } catch (error) {
-      // console.error("Error accepting appointment:", error);
+      console.error("Error accepting appointment:", error);
       NextResponse.json({success: false, err : "Failed to accept the appointment"});
     }
 }

@@ -22,6 +22,7 @@ const PrescriptionTable = ({ date, prescriptions }: { date: string, prescription
   
   return (
     <div className="border rounded-lg overflow-hidden mb-4">
+      
       <div className="bg-primary text-primary-foreground px-6 py-4 font-medium">Slot Date - {month}</div>
       <div className="p-6">
         <Table>
@@ -68,6 +69,7 @@ export default function Component() {
   return (
     <div className="grid gap-8 max-w-4xl mx-auto px-4 py-8">
       <div className="text-center font-mono font-extrabold text-xl">Prescriptions</div>
+      <div>Click the Prescription you want and download it in pdf.</div>
       {Object.keys(groupedPrescriptions).map((date) => (
         <PrescriptionTable key={date} date={date} prescriptions={groupedPrescriptions[date]} />
       ))}

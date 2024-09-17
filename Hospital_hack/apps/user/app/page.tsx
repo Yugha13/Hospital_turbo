@@ -114,7 +114,7 @@ export default function Component() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-12">
               <div className="relative overflow-hidden rounded-lg shadow-lg">
                 <img
-                  src="https://media.licdn.com/dms/image/C5612AQHfi6nsfnBalg/article-cover_image-shrink_720_1280/0/1520172399307?e=2147483647&v=beta&t=-SImFWqvA8ZJU7NKxQvKWGKnz9G6GHbC2wbBN8bLroY"
+                  src="https://files.oaiusercontent.com/file-fQwEG6drjhe8f8SM0paJK03v?se=2024-09-17T11%3A09%3A05Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dc7710135-6b13-46cd-a1b4-598d6a4b7442.webp&sig=zMQq2U7c9385ZDa3CtDs6%2BktMqLk%2Bdzg9muhmOoLSBI%3D"
                   width={600}
                   height={400}
                   alt="Trendy Looks"
