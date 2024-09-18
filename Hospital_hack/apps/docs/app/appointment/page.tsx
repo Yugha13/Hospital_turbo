@@ -24,13 +24,13 @@ export default function Component() {
       const appoints = res.data.info;  
 
       const now = new Date();
+      const docApp = appoints?.filter((app: any) => (new Date(app.date) > now ));
       const upcomingAppointments = appoint?.filter((app: any) => (new Date(app.date) > now ));
-      const finishedAppointments = appoint?.filter((app: any) => new Date(app.date) <= now);
+      const finishedAppointments = appoint?.filter((app: any) => (new Date(app.date) <= now));
       
-      setInfo(appoints);
+      setInfo(docApp);
       setUpcoming(upcomingAppointments);
-      sethist(finishedAppointments);
-      
+      sethist(finishedAppointments);   
     })() 
   }, [])
 
@@ -58,7 +58,6 @@ export default function Component() {
               <CardContent>
                 <div className="grid gap-4">
                   {info?.map((i:any) => <AppReq info={i}/>)}
-
                 </div>
               </CardContent>
             </Card>
@@ -68,7 +67,6 @@ export default function Component() {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4">
-                  
                   {upcoming?.map((i:any) => <UpcomingApp info={i}/>)}
                 </div>
               </CardContent>

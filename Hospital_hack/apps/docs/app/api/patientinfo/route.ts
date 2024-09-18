@@ -9,12 +9,20 @@ export const POST = async (req : NextRequest) => {
     // console.log("this is id", id);
     
     try {
-        const {patientInfo}:any = await prisma.patient.findFirst({
+        const patientInfo = await prisma.patient.findFirst({
             where : {
                 id
             },
             include : {
-                patientInfo : true
+                patientInfo : true,
+                appointments : {
+                    where : {
+                        status : "ACCEPTED"
+                    },
+                    orderBy: [
+                      {date: 'desc'}, {time: 'desc'}
+                    ]
+                }
             }
         })
         // console.log(patientInfo);

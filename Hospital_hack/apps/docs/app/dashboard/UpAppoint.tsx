@@ -2,13 +2,12 @@ import { Card, CardContent } from "@repo/ui/components/ui/card"
 import { Button } from "@repo/ui/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui/components/ui/avatar"
 import Link from "next/link"
-import { useEffect, useState } from "react";
-import axios from "axios";
+
 
 
 
 export default function UpAppoint({upcoming}:any) {
-    const [id, setid] = useState("");
+    // const [id, setid] = useState("");
     const date = new Date(upcoming.date);
     const day = date.toLocaleDateString()
     // console.log(upcoming.email);

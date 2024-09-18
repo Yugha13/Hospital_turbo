@@ -20,23 +20,23 @@ export default function Component() {
   useEffect(() => {
     (async () => {
       const res = await axios.get("/api/viewappointment");
-      const hisres = await axios.get("/api/hisappoint");
-      const appoint = hisres.data.info;
+      const responce = await axios.get("/api/hisappoint");
+      const appoint = responce.data.info;
       const appoints = res.data.info;  
       
       const now = new Date();
-      const upcomingAppointments = appoint?.filter((app: any) => new Date(app.date) > now);
+      const upAppoint = appoint?.filter((app: any) => new Date(app.date) > now);
       // console.log(upcomingAppointments);
+      const docAppoint = appoints?.filter((app: any) => new Date(app.date) >= now);
       
-      setInfo(appoints);
-      setUpcoming(upcomingAppointments);
+      setInfo(docAppoint);
+      setUpcoming(upAppoint);
     })() 
   }, []);
   const filteredAppointments = upcoming?.filter((upcoming:any) => 
     upcoming.name.toLowerCase().includes(search.toLowerCase()),
   )
   
-
 
   return (
     

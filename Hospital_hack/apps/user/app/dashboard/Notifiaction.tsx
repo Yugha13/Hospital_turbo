@@ -17,7 +17,7 @@ const NotiCard = ({info}:any) => {
       <div className="p-2">
         <div className="font-medium ">Your appointment with Dr. Smith was {docstatus}</div>
         <div className="text-sm text-muted-foreground">Updated on {month}</div>
-        {(info.status =="DECLINED")?<div className="text-sm text-muted-foreground">Reason : {info.docreason}</div>:<div></div>}
+        {(info.status =="DECLINED")?<div className="text-sm text-muted-foreground">Reason : {info.docreason}</div>:<div>No Notification Yet</div>}
       </div>
     </div>
   )

@@ -4,6 +4,8 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { format } from 'date-fns';
+import Link from "next/link";
+
 // Group prescriptions by date
 const groupByDate = (prescriptions: any[]) => {
   return prescriptions.reduce((groups: any, prescription: any) => {
@@ -69,7 +71,11 @@ export default function Component() {
   return (
     <div className="grid gap-8 max-w-4xl mx-auto px-4 py-8">
       <div className="text-center font-mono font-extrabold text-xl">Prescriptions</div>
-      <div>Click the Prescription you want and download it in pdf.</div>
+      <Link href="/sample">
+        <div className="text-center hover:underline text-primary">
+          Click here and download it in pdf.
+        </div>
+      </Link>
       {Object.keys(groupedPrescriptions).map((date) => (
         <PrescriptionTable key={date} date={date} prescriptions={groupedPrescriptions[date]} />
       ))}

@@ -24,13 +24,6 @@ export default function Component() {
     })();
   }, []);
 
-  // const now = new Date();
-  // const upcomingAppointments = info?.filter((app: any) => (new Date(app.date) > now ));
-  // const finishedAppointments = info?.filter((app: any) => new Date(app.date) <= now);
-
-  // setUpcoming(upcomingAppointments);
-  // sethist(finishedAppointments);
-
   return (
     <div className="flex flex-col min-h-[80vh] bg-background mt-20">
       <main className="flex-1 grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3 lg:p-6 h-full"> 

@@ -67,7 +67,7 @@ export default function Component() {
                   <Input
                     type="text"
                     id="name"
-                    defaultValue={info.name}
+                    defaultValue={info?.name}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
                     placeholder="Enter your name"
@@ -92,7 +92,6 @@ export default function Component() {
                     </SelectContent>
                   </Select>
                 </div>
-
                 <div>
                   <label htmlFor="dob" className="block text-sm font-medium mb-1">
                     Date Of Birth
@@ -100,7 +99,7 @@ export default function Component() {
                   <Input
                     type="date"
                     id="date"
-                    value={info.dob?.substr(0, 10)}
+                    value={info?.dob?.substr(0, 10)}
                     className="w-full px-3 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
                     min="1"
                     max="20"
@@ -113,7 +112,7 @@ export default function Component() {
                     Specialist
                   </label>
                   <Input
-                    defaultValue={info.specialist}
+                    defaultValue={info?.specialist}
                     onChange={handleChange}
                     type="string"
                     id="specialist"
@@ -125,16 +124,13 @@ export default function Component() {
                     Experience
                   </label>
                   <Input
-                    defaultValue={info.experience}
+                    defaultValue={info?.experience}
                     onChange={handleChange}
                     type="number"
                     id="experience"
                     className="w-full px-3 py-2 border border-[#ccc] rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
                   />
                 </div>
-                
-                
-                
                 <Button
                   type="submit"
                   className="w-full  text-white py-2 px-4 rounded-md transition-colors"
@@ -144,24 +140,24 @@ export default function Component() {
               </form>
             </div>
             <div className="flex flex-col items-center justify-center">
-              <div className={` rounded-full w-48 h-48 flex items-center justify-center mb-6 ${info.gender=="male"?"bg-blue-100 ":"bg-pink-100"}`}>
+              <div className={`rounded-full w-48 h-48 flex items-center justify-center mb-6 ${info?.gender=="male"?"bg-blue-100 ":"bg-pink-100"}`}>
                 <img src={imgs}
                     className="w-36 h-36 object-cover rounded-full" 
                 />
               </div>
-              <h2 className="text-2xl font-bold mb-2">{info.name}</h2>
+              <h2 className="text-2xl font-bold mb-2">{info?.name}</h2>
               
               <div className="flex flex-col md:flex-row items-center mb-4">
                 <span className="mr-2">
                     <Mail  size={20} className="text-pink-300 "  />
                 </span>
-                <span>{info.email}</span>
+                <span>{info?.email}</span>
               </div>
               <div className="flex items-center mb-4 flex-col md:flex-row ">
                 <span className="mr-2">
                   <Phone  size={20} className="text-pink-300 "   />
                 </span>
-                <span>{info.phone}</span>
+                <span>{info?.phone}</span>
               </div>
               <div className="flex items-center mb-4">
                 <span className="text-[#d4af37] mr-2">

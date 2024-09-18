@@ -10,10 +10,10 @@ export default function Component() {
         <div className="flex items-center gap-4">
           <Avatar className="w-8 h-8">
             <AvatarImage src="/placeholder-user.jpg" alt="ChatGPT" />
-            <AvatarFallback>CG</AvatarFallback>
+            <AvatarFallback>Yu</AvatarFallback>
           </Avatar>
           <div>
-            <div className="font-medium">ChatGPT</div>
+            <div className="font-medium">Yugha</div>
             <div className="text-sm text-muted-foreground">Online</div>
           </div>
         </div>

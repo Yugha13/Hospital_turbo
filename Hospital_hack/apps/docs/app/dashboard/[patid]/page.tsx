@@ -1,5 +1,4 @@
 "use client"
-
 import { Avatar, AvatarImage, AvatarFallback } from "@repo/ui/components/ui/avatar"
 import { Card, CardHeader, CardTitle, CardContent } from "@repo/ui/components/ui/card"
 import { Separator } from "@repo/ui/components/ui/separator"
@@ -8,23 +7,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 
+//delete patient appointment
+
 export default function Component({params}:any) {
     const [info, setinfo] = useState({});
     const [appoint, setappoint] = useState({});
-    // console.log(params.patid);
+    console.log(params.patid);
     useEffect(() => {
         (async() => {
-            const {data} = await axios.post("/api/patientinfo", {id: +params.patid});
-            const appoint = await axios.post("/api/patientapp", {email : info?.email});
-            
-            // console.log("data : ",data.data);
-            // console.log( "appoint : ",appoint.data.appoint);
-            
-            setinfo(data.data);
-            setappoint(appoint.data.appoint);
-            
+            const {data} = await axios.post("/api/patientinfo", {id: +params.patid});     
+            console.log("data : ",data.data.appointments);
+            setinfo(data.data.patientInfo);
+            setappoint(data.data.appointments);    
         })();
-      }, [])
+      }, [params.id])
       
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-8 md:p-10">
@@ -78,7 +74,7 @@ export default function Component({params}:any) {
       <Separator className="my-8" />
       <Card>
         <CardHeader>
-          <CardTitle>Upcoming Appointments</CardTitle>
+          <CardTitle>Appointments History</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -92,7 +88,7 @@ export default function Component({params}:any) {
             </TableHeader>
             <TableBody>
             {Array.isArray(appoint) && appoint.length > 0 ? (
-              appoint.map((i: { id: string; time: string; date: string; doctorEmail: string; reason: string }, index: number) => (
+              appoint.map((i: any) => (
               <TableRow key={i.id}>
                 <TableCell>{new Date(i.date).toLocaleDateString()}</TableCell> 
                 <TableCell>{i.time}</TableCell>                               

@@ -14,7 +14,7 @@ import axios from "axios"
 export const AppReq = ({info}:any) => {
     const [ reason, setreason ] = useState("");
     const date = new Date(info.date);
-    const day = date.toLocaleDateString()
+    const day = date.toLocaleDateString();
     const handleStatus = async (e:any,status:any, reason?: string) => {
       e.preventDefault();
       const payload = {
@@ -97,7 +97,7 @@ export const UpcomingApp = ({info}:any) => {
         <div className="flex items-center gap-2">
           <Avatar className="h-10 w-10 border">
             <AvatarImage src="/placeholder-user.jpg" alt="Patient" />
-            <AvatarFallback>{info.name[0]+info.name[1]}</AvatarFallback>
+            <AvatarFallback>{info.name.slice(0,1)}</AvatarFallback>
           </Avatar>
           <div>
             <p className="font-medium">{info.name}</p>
@@ -120,7 +120,7 @@ export const AppHistory = ({info}:any) => {
     const date = new Date(info.date);
     const day = date.toLocaleDateString()
     // console.log(day);
-    console.log(info.status);
+    // console.log(info.status);
     const [colorIs, setColrIs] = useState((info.status == "DECLINED") ? "bg-destructive text-red-50" : "bg-green-300 text-green-50");
     // const color = ;
 

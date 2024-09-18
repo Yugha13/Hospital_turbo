@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@repo/ui/components/ui/card"
 import Link from "next/link"
 import { Button } from '@repo/ui/components/ui/button'
+import { ArrowBigUp } from "lucide-react"
 
 
 const Records = () => {
@@ -16,7 +17,7 @@ const Records = () => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="font-medium">Lab Results</div>
-                <div className="text-sm text-muted-foreground">Last updated: April 10, 2023</div>
+                <div className="text-sm text-muted-foreground">View your Lab Record Here </div>
               </div>
               <Link href="/labresult">
               <Button variant="outline" size="sm">
@@ -27,7 +28,7 @@ const Records = () => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="font-medium">Prescriptions</div>
-                <div className="text-sm text-muted-foreground">Last updated: May 1, 2023</div>
+                <div className="text-sm text-muted-foreground">View your Prescription Here.</div>
               </div>
               <Link href="/viewpres">
               <Button variant="outline" size="sm">
@@ -38,7 +39,7 @@ const Records = () => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="font-medium">Past Treatments</div>
-                <div className="text-sm text-muted-foreground">Last updated: June 1, 2023</div>
+                <div className="text-sm text-muted-foreground">Your Past Treatment Will Be Shown Here.</div>
               </div>
               <Button variant="outline" size="sm">
                 View

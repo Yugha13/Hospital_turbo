@@ -44,7 +44,7 @@ export default function Component() {
                   <div className="bg-primary rounded-full p-2">
                     <Pill className="h-6 w-6 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold">Write Priscription</h3>
+                  <h3 className="text-xl font-semibold">Write Prescription</h3>
                 </div>
                 <p className="text-muted-foreground">
                   Write Prescription for your patients and send them as soon as possible.
