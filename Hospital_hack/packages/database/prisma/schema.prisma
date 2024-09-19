@@ -27,7 +27,10 @@ model PatientInfo {
   dob             DateTime
   gender          String
   email           String    @unique
-  phone           String
+  phone           String?
+  age             String?
+  address         String?
+  allergies       String?
   healthIssues    String?
   medicalHistory  String?
   emergencyNumber String?

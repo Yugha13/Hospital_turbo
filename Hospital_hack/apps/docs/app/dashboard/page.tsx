@@ -12,9 +12,35 @@ import UpAppoint from "./UpAppoint"
 import { Input } from "@repo/ui/components/ui/input"
 
 
+const PatRecord = ({hist}:any) => {
+  const date = new Date(hist.date);
+  const updatedDate = date.toLocaleDateString()
+  // console.log(hist.patient.id);
+  return (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2">
+      <Avatar className="border">
+        <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
+        <AvatarFallback>{hist.name.slice(0,2)}</AvatarFallback>
+      </Avatar>
+      <div>
+        <div className="font-medium">{hist.name}</div>
+        <div className="text-sm text-muted-foreground">Last Visit: {updatedDate}</div>
+      </div>
+    </div>
+    <Link href={`/dashboard/${hist.patient?.id}`}>
+      <Button size="sm" variant="outline">
+        View Profile
+      </Button>
+    </Link>
+  </div>
+  )
+}
+
 export default function Component() {
   const [info, setInfo] = useState([] as any);
   const [upcoming, setUpcoming] = useState([] as any);
+  const [hist, sethist] = useState([] as any);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -26,11 +52,13 @@ export default function Component() {
       
       const now = new Date();
       const upAppoint = appoint?.filter((app: any) => new Date(app.date) > now);
+      const hisAppoint = appoint?.filter((app: any) => new Date(app.date) < now);
       // console.log(upcomingAppointments);
       const docAppoint = appoints?.filter((app: any) => new Date(app.date) >= now);
       
       setInfo(docAppoint);
       setUpcoming(upAppoint);
+      sethist(hisAppoint);
     })() 
   }, []);
   const filteredAppointments = upcoming?.filter((upcoming:any) => 
@@ -44,7 +72,6 @@ export default function Component() {
       <div className="flex gap-2 my-4">
         <main className="flex-1 sm:py-0 md:space-y-8">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 px-3">
-
             <Card>
               <CardHeader>
                 <CardTitle>View Appointments</CardTitle>
@@ -68,55 +95,11 @@ export default function Component() {
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="border">
-                        <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                        <AvatarFallback>JD</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">John Doe</div>
-                        <div className="text-sm text-muted-foreground">Last Visit: 2 days ago</div>
-                      </div>
-                    </div>
-                    <Button size="sm" variant="outline">
-                      View
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="border">
-                        <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                        <AvatarFallback>JA</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">Jane Appleseed</div>
-                        <div className="text-sm text-muted-foreground">Last Visit: 1 week ago</div>
-                      </div>
-                    </div>
-                    <Button size="sm" variant="outline">
-                      View
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Avatar className="border">
-                        <AvatarImage src="/placeholder-user.jpg" alt="Patient Avatar" />
-                        <AvatarFallback>SM</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">Sarah Miller</div>
-                        <div className="text-sm text-muted-foreground">Last Visit: 2 weeks ago</div>
-                      </div>
-                    </div>
-                    <Button size="sm" variant="outline">
-                      View
-                    </Button>
-                  </div>
+                  {hist.map((i:any) => <PatRecord hist={i}/>)}
                 </div>
               </CardContent>
               <CardFooter>
-                <Button size="sm">View All</Button>
+                  <Button size="sm">View All</Button>
               </CardFooter>
             </Card>
             <Card>

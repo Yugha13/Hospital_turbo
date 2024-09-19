@@ -1,11 +1,43 @@
 "use client"
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // @ts-ignore
 import html2pdf from 'html2pdf.js';
+import axios from 'axios';
 
+const TableRow = ({ pres }: any) => {
+  return (
+    <tr>
+      <td className="border border-border p-2 text-center">{pres.id}</td>
+      <td className="border border-border p-2 text-center">{pres.date}</td>
+      <td className="border border-border p-2 text-center">{pres.name}</td>
+      <td className="border border-border p-2 text-center">{pres.medication}</td>
+      <td className="border border-border p-2 text-center">{pres.quantity}</td>
+      <td className="border border-border p-2 text-center">{pres.dosage}</td>
+      <td className="border border-border p-2 text-center">{pres.takein}</td>
+    </tr>
+  );
+};
 
 const PrescriptionTemplate: React.FC = () => {
+  const [info, setInfo] = useState([] as any);
+  const [pres, setPres] = useState([] as any);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get("/api/medpdf");
+      setInfo(data.info.patientInfo);
+      setPres(data.info.prescription);
+      console.log(data.info);
+    })();
+  }, []);
+
+  const date = new Date(info.dob).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   const prescriptionRef = useRef<HTMLDivElement | null>(null);
 
   const handleDownload = () => {
@@ -29,36 +61,26 @@ const PrescriptionTemplate: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-8 bg-card text-card-foreground border border-border rounded-md">
-
       <div ref={prescriptionRef}>
         <div className="text-center border-b-4 border-primary pb-4 mb-6">
-          <h1 className="text-primary text-2xl sm:text-3xl font-bold">PRESCRIPTION TEMPLATE</h1>
+          <h1 className="text-primary text-2xl sm:text-3xl font-bold">PRESCRIPTION</h1>
         </div>
 
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div>
             <p>
-              <strong>Prescription No.</strong> <br />
-              0001
-            </p>
-          </div>
-          <div>
-            <p>
-              <strong>Prescription Date</strong> <br />
-              November 8, 2021
+              {/* <strong>Prescription No.</strong> <br /> */}
             </p>
           </div>
         </div>
 
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-6 border-b-2 border-border pb-6">
           <div>
             <h3 className="text-lg font-bold">Patient Information</h3>
             <p>
-              <strong>Name:</strong> Anne Burton <br />
-              <strong>Phone Number:</strong> (123) 123-4567 <br />
-              <strong>Email:</strong> anne.burton@noemailtest.com <br />
+              <strong>Name:</strong> {info.name} <br />
+              <strong>Phone Number:</strong> {info.phone} <br />
+              <strong>Email:</strong> {info.email} <br />
               <strong>Address:</strong> 1372 Payne Street, Richlands, VA 24641
             </p>
             <p>
@@ -68,11 +90,11 @@ const PrescriptionTemplate: React.FC = () => {
           <div>
             <p>
               <strong>Age:</strong> 30 <br />
-              <strong>Date of Birth:</strong> Wednesday, November 8, 1989 <br />
-              <strong>Gender:</strong> Female
+              <strong>Date of Birth:</strong> {date} <br />
+              <strong>Gender:</strong> {info.gender}
             </p>
             <p>
-              <strong>Notable Health Condition:</strong> None
+              <strong>Notable Health Condition:</strong> {info.healthIssues}
             </p>
           </div>
         </div>
@@ -84,62 +106,25 @@ const PrescriptionTemplate: React.FC = () => {
             <table className="min-w-full table-auto border-collapse border border-border">
               <thead className="bg-muted text-muted-foreground">
                 <tr>
+                  <th className="border border-border p-2">Prescription ID</th>
+                  <th className="border border-border p-2">Prescribed Date</th>
+                  <th className="border border-border p-2">Prescribed By</th>
                   <th className="border border-border p-2">Medication Name</th>
-                  <th className="border border-border p-2">Purpose</th>
+                  <th className="border border-border p-2">Pill Quantity</th>
                   <th className="border border-border p-2">Dosage</th>
-                  <th className="border border-border p-2">Route</th>
-                  <th className="border border-border p-2">Frequency</th>
+                  <th className="border border-border p-2">When to Take</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td className="border border-border p-2 text-center">Expectorant</td>
-                  <td className="border border-border p-2 text-center">Removes phlegm</td>
-                  <td className="border border-border p-2 text-center">1 tablet</td>
-                  <td className="border border-border p-2 text-center">Oral</td>
-                  <td className="border border-border p-2 text-center">Every 4 hours</td>
-                </tr>
-                <tr>
-                  <td className="border border-border p-2 text-center">Paracetamol</td>
-                  <td className="border border-border p-2 text-center">For fever</td>
-                  <td className="border border-border p-2 text-center">1 tablet</td>
-                  <td className="border border-border p-2 text-center">Oral</td>
-                  <td className="border border-border p-2 text-center">Every 4 hours</td>
-                </tr>
-                <tr>
-                  <td className="border border-border p-2 text-center">Anti-biotic</td>
-                  <td className="border border-border p-2 text-center">Bacterial infection</td>
-                  <td className="border border-border p-2 text-center">500mg</td>
-                  <td className="border border-border p-2 text-center">Oral</td>
-                  <td className="border border-border p-2 text-center">Every 8 hours</td>
-                </tr>
-                <tr>
-                  <td className="border border-border p-2 text-center">Vitamin C</td>
-                  <td className="border border-border p-2 text-center">Immune system</td>
-                  <td className="border border-border p-2 text-center">500mg</td>
-                  <td className="border border-border p-2 text-center">Oral</td>
-                  <td className="border border-border p-2 text-center">Once a day</td>
-                </tr>
+                {pres.map((i: any) => (
+                  <TableRow key={i.id} pres={i} />
+                ))}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Physician Information */}
-        <div className="flex flex-col sm:flex-row justify-between items-start mt-8">
-          <div className="mb-4 sm:mb-0">
-            <p>
-              <strong>Physician Name:</strong> Leslie Holden <br />
-            </p>
-            
-          </div>
-          <div>
-            <p>
-              <strong>Physician Phone Number:</strong> (112) 312-3456 <br />
-              <strong>Physician Email:</strong> leslie.h@noemail.com
-            </p>
-          </div>
-        </div>
+        
       </div>
       <div className="text-right m-4">
         <button
@@ -148,6 +133,7 @@ const PrescriptionTemplate: React.FC = () => {
         >
           Download PDF
         </button>
+        
       </div>
     </div>
   );

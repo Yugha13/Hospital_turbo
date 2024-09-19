@@ -12,11 +12,11 @@ import { useEffect, useState } from "react";
 export default function Component({params}:any) {
     const [info, setinfo] = useState({});
     const [appoint, setappoint] = useState({});
-    console.log(params.patid);
+    // console.log(params.patid);
     useEffect(() => {
         (async() => {
             const {data} = await axios.post("/api/patientinfo", {id: +params.patid});     
-            console.log("data : ",data.data.appointments);
+            // console.log("data : ",data.data.appointments);
             setinfo(data.data.patientInfo);
             setappoint(data.data.appointments);    
         })();

@@ -11,7 +11,7 @@ import NotNav from "./NotNav"
 
 
 
-export default function Component() {
+export default function Navbar() {
   const navigate = useRouter();
   const {isAuthenticated, isLoading} = useKindeBrowserClient();
   

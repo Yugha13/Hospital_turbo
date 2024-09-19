@@ -9,7 +9,7 @@ export default function Component() {
       <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-4">
           <Avatar className="w-10 h-10 hover:shadow-lg transition-shadow">
-            <AvatarImage src="/placeholder-user.jpg" alt="xyz" />
+            <AvatarImage src="/placeholder-user.jpg" alt="xyz"/>
             <AvatarFallback>XY</AvatarFallback>
           </Avatar>
           <div>

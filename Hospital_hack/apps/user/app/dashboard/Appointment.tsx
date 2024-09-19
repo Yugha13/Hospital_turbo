@@ -36,15 +36,16 @@ const Appointment = ({appoint}:any) => {
   // console.log(upappoint);  
 
   return (
-      <Card className="relative">
+      <Card>
             <CardHeader>
               <CardTitle>Upcoming Appointments</CardTitle>
             </CardHeader>
             {appoint.slice(0,3).map((i:any)=> <Content appoint = {i}/>)}
-            <CardFooter className="flex justify-between absolute bottom-0 w-full">
+            <CardFooter className="flex justify-between ">
               <Link href="/history" target="_blank" className="text-sm font-medium" prefetch ={false}>
                 View all appointments
               </Link>
+              
               <Link href="/alldocs">
                 <div className="p-4">
                   <Button>Book Appointment</Button>
