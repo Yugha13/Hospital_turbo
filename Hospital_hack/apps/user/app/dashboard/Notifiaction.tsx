@@ -28,7 +28,7 @@ const Notifiaction = ({appoint}:any) => {
   // console.log("appoint from notification ", appoint);
   
   return (
-        <Card className="relative">
+        <Card className="w-full md:col-span-2">
             <CardHeader>
               <CardTitle>Notifications</CardTitle>
             </CardHeader>

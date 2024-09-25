@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:postgres@localhost:5432/mydb?schema=public"
+  url      = "postgresql://YuSab_owner:RQgNJLkh6S1z@ep-still-snowflake-a1pu4fxf.ap-southeast-1.aws.neon.tech/YuSab?sslmode=require"
 }
 
 generator client {
@@ -20,6 +20,7 @@ model Patient {
   prescription    Prescription[]
   labResult       LabResult[]
 }
+
 
 model PatientInfo {
   id              Int       @id      @default(autoincrement())

@@ -7,7 +7,7 @@ import { Button } from "@repo/ui/components/ui/button"
 const Message = () => {
   return (
     
-        <Card className="relative">
+        <Card className="w-full">
           <CardHeader className="flex items-center justify-between">
             <CardTitle>Messaging</CardTitle>
             
@@ -48,7 +48,7 @@ const Message = () => {
             </div>
           </CardContent>
 
-          <CardFooter className="absolute bottom-0">
+          <CardFooter className="">
               <Link href="/chat" target="_blank" className="text-sm font-medium" prefetch={false}>
             <div className="flex gap-2 place-items-center">
                 <Button variant={"outline"}>

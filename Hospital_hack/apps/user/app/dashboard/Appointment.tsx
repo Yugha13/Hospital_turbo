@@ -36,7 +36,7 @@ const Appointment = ({appoint}:any) => {
   // console.log(upappoint);  
 
   return (
-      <Card>
+      <Card className="w-full">
             <CardHeader>
               <CardTitle>Upcoming Appointments</CardTitle>
             </CardHeader>
@@ -47,9 +47,7 @@ const Appointment = ({appoint}:any) => {
               </Link>
               
               <Link href="/alldocs">
-                <div className="p-4">
                   <Button>Book Appointment</Button>
-                </div>
               </Link>
             </CardFooter>
           </Card>

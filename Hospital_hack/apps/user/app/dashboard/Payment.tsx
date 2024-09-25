@@ -6,7 +6,7 @@ import { Button } from "@repo/ui/components/ui/button"
 
 const Payment = () => {
   return (
-        <Card>
+        <Card className="w-full">
           <CardHeader className="flex items-center justify-between">
             <CardTitle>Billing</CardTitle>
             <Link href="#" className="text-sm text-primary" prefetch={false}>

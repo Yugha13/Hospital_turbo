@@ -26,10 +26,12 @@ export default function Component() {
 
   return (
     <div className="flex flex-col min-h-[80vh] bg-background mt-20">
-      <main className="flex-1 grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3 lg:p-6 h-full"> 
+      <main className="lg:flex w-full gap-4 p-4 h-fit justify-between grid grid-cols-1 md:grid-cols-2"> 
         <Appointment appoint = {appoint}/>
         <Message/>
         <Notifiaction appoint = {appoint}/>
+      </main>
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 h-fit">
         <Records/>
         <Payment/> 
       </main>

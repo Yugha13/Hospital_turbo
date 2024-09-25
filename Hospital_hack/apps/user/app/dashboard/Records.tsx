@@ -6,7 +6,7 @@ import { ArrowBigUp } from "lucide-react"
 
 const Records = () => {
   return (
-        <Card>
+        <Card className="w-full">
           <CardHeader className="flex items-center justify-between">
             <CardTitle>Medical Records</CardTitle>
             <Link href="/medhis" className="text-sm text-primary" prefetch={false}>
